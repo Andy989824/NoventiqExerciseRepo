@@ -11,7 +11,7 @@ pool: my-laptop-agent
 variables:
 - group: my-variable-group-01
 - name: my-passed-variable
-  value: $[variables.variable-01]
+  value: $[variables.variable01]
 
 steps:
 - script: echo Hello, world!
@@ -22,5 +22,5 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- script: echo $variable-01
+- script: echo $variable01
 - script: echo $my-passed-variable
