@@ -23,10 +23,10 @@ export default function App() {
   useEffect(() => {
     const fetchHealthStatus = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/health");
+        const response = await axios.get("http://20.44.255.20:3001/api/health");
         setHealthStatus(response.data);
       } catch (error) {
-        console.error("Failed to fetch health status:", error);
+        console.log("Failed to fetch health status:", error);
       }
     };
 
@@ -44,7 +44,11 @@ export default function App() {
             Message: {healthStatus.message}
           </p>
         ) : (
-          <p>Loading health status...</p>
+          <p>
+            Health Status: ERR_CONNECTION_REFUSED
+            <br />
+            Message: Server might not be running
+          </p>
         )}
       </header>
     </div>

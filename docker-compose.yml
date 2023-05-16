@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  ndserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - 3001:3001
+  ndapp:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    ports:
+      - 3000:3000

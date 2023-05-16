@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment-frontend-3
+  labels:
+    app: my-app-deployment-frontend-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app-deployment-frontend-3
+  template:
+    metadata:
+      labels:
+        app: my-app-deployment-frontend-3
+    spec:
+      containers:
+        - name: my-app-deployment-frontend-3
+          image: andy989824/myfirstrepo:appTag-1A
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-deployment-frontend-3
+spec:
+  selector:
+    app: my-app-deployment-frontend-3
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment-backend-3
+  labels:
+    app: my-app-deployment-backend-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app-deployment-backend-3
+  template:
+    metadata:
+      labels:
+        app: my-app-deployment-backend-3
+    spec:
+      containers:
+        - name: my-app-deployment-backend-3
+          image: andy989824/myfirstrepo:serverTag-1A
+          ports:
+            - containerPort: 3001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-deployment-backend-3
+spec:
+  selector:
+    app: my-app-deployment-backend-3
+  ports:
+    - protocol: TCP
+      port: 3001
+      targetPort: 3001
+  type: LoadBalancer
