@@ -6,12 +6,8 @@
 trigger:
 - main
 
-pool: my-laptop-agent
 
-variables:
-- group: my-variable-group-01
-- name: my-passed-variable
-  value: $[variables.variable01]
+pool: my-laptop-agent
 
 steps:
 - script: echo Hello, world!
@@ -22,5 +18,14 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- script: echo $(variable01) echo $(variable01)
-- script: echo $(my-passed-variable)
+- script: echo $(variable01)
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'Visual Studio Enterprise Subscription – MPN(1)(d957954d-fa30-4f4d-aed1-d1aea92276c7)'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript:
+      #Retrieve the variable values from the Azure DevOps Variable Group
+      DB_CONNECTION_URL=$(DB_CONNECTION_URL)
+
