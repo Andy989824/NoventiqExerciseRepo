@@ -22,5 +22,5 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- script: echo $(variable01)
+- script: echo $(variable01) echo $(variable01)
 - script: echo $(my-passed-variable)
