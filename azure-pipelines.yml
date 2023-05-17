@@ -23,13 +23,13 @@ steps:
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'Visual Studio Enterprise Subscription – MPN(1)(d957954d-fa30-4f4d-aed1-d1aea92276c7)'
-    scriptType: 'batch'
+    scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      # Retrieve the variable values from the Azure DevOps Variable Group
+      #Retrieve the variable values from the Azure DevOps Variable Group
       DB_CONNECTION_URL=$(DB_CONNECTION_URL)
 
-      kubectl apply -f myapp3.yaml
+      kubectl apply -f .\myapp3.yaml
 
 
 
