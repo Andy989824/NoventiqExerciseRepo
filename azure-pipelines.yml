@@ -29,7 +29,7 @@ steps:
       # Retrieve the variable values from the Azure DevOps Variable Group
       DB_CONNECTION_URL=$(DB_CONNECTION_URL)
 
-      kubectl apply -f .\myapp3.yaml
+      kubectl apply -f "C:\Users\USER\Desktop\Noventiq Exercise\myapp3.yml"
 
 
 
