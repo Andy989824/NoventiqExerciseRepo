@@ -28,4 +28,4 @@ steps:
     inlineScript:
       #Retrieve the variable values from the Azure DevOps Variable Group
       DB_CONNECTION_URL=$(DB_CONNECTION_URL)
-      kubectl apply -f deployment.yaml
+      kubectl create -f deployment.yaml
