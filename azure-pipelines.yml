@@ -27,7 +27,7 @@ steps:
       # Retrieve the variable values from the Azure DevOps Variable Group
       DB_CONNECTION_URL=$(dbURL)
 
-      pwd
+      echo DB_CONNECTION_URL
       
 
 
