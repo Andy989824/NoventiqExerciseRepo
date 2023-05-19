@@ -9,6 +9,9 @@ trigger:
 
 pool: 'my-laptop-agent'
 
+variables:
+- group: my-variable-group-01
+
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
@@ -27,6 +30,9 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: |
       # Retrieve the variable values from the Azure DevOps Variable Group
+      kubectl version --client
+
+
 
 
 
