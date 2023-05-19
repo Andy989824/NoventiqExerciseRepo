@@ -7,7 +7,7 @@ trigger:
 - main
 
 
-pool: 'ubuntu-latest'
+pool: 'Default'
 
 steps:
 - script: echo Hello, world!
