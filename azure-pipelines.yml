@@ -13,15 +13,9 @@ variables:
 - group: my-variable-group-01
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-
 - script: echo $(variable01)
+          echo $(dbURL)
+  displayName: 'Checking Variable Group'
 
 - task: AzureCLI@2
   inputs:
