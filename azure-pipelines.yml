@@ -7,7 +7,7 @@ trigger:
 - main
 
 
-pool: 'Default'
+pool: 'my-laptop-agent'
 
 steps:
 - script: echo Hello, world!
