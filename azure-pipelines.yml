@@ -27,7 +27,9 @@ steps:
       # Retrieve the variable values from the Azure DevOps Variable Group
       DB_CONNECTION_URL=$(dbURL)
 
-      kubectl apply -f C:\Users\USER\Desktop\Noventiq Exercise\myapp3.yaml
+      kubectl apply -f aksManifestFile.yaml
+
+
       
 
 
