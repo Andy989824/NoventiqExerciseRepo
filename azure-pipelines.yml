@@ -20,7 +20,7 @@ steps:
 
 - task: AzureCLI@2
   inputs:
-    azureSubscription: 'Visual Studio Enterprise Subscription – MPN(1)(d957954d-fa30-4f4d-aed1-d1aea92276c7)'
+    azureSubscription: 'Visual Studio Enterprise Subscription – MPN(d957954d-fa30-4f4d-aed1-d1aea92276c7)'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
