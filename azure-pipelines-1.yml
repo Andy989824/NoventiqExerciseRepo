@@ -22,7 +22,10 @@ stages:
        containerRegistry: 'myappacr1998001'
        repository: '$(imageRepo)'
        command: 'buildAndPush'
-       Dockerfile: '$(Build.SourcesDirectory)/Dockerfile.app'
+       Dockerfile: |
+        '$(Build.SourcesDirectory)/Dockerfile.app'
+        '$(Build.SourcesDirectory)/Dockerfile.server'
+
        tags: |
          $(tag)
          latest
