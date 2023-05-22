@@ -15,7 +15,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: ubuntu-latest
+      vmImage: my-laptop-agent
     steps:
     - task: Docker@2
       inputs:
@@ -40,7 +40,7 @@ stages:
     - job: Deploy 
       displayName: Deploy to AKS
       pool: 
-        vmImage:ubuntu-latest
+        vmImage:my-laptop-agent
       steps: 
         - task: DownloadPipelineArtifact@2
           inputs:
