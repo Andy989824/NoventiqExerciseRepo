@@ -6,7 +6,8 @@ resources:
 
 variables:
   imageRepo: sampleApp
-  tag: '$(Build.BuildId)'
+  appTag: 'appTag-$(Build.BuildId)'
+  serverTag: 'serverTag-$(Build.BuildId)'
 
 stages:
 - stage: Build
@@ -24,7 +25,7 @@ stages:
        command: 'buildAndPush'
        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile.app'
        tags: |
-         $(tag)
+         $(appTag)
          latest
     - task: Docker@2
       inputs:
@@ -33,7 +34,7 @@ stages:
        command: 'buildAndPush'
        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile.server'
        tags: |
-         $(tag)
+         $(serverTag)
          latest
     - task: PublishPipelineArtifact@1
       inputs:
