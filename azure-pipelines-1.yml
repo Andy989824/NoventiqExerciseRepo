@@ -37,7 +37,7 @@ stages:
          $(serverTag)
     - task: PublishPipelineArtifact@1
       inputs:
-          targetPath: '$(Pipeline.Workspace)/s/aksManifestFile2.yaml'
+          targetPath: '$(Pipeline.Workspace)/s/aksManifestFile.yaml'
           artifact: 'manifests'
           publishLocation: 'pipeline'
 - stage: Deploy
@@ -45,7 +45,8 @@ stages:
   variables:
     acr-devurl: 'myappacr1998001.azurecr.io'
     acr-secret: aks-example-auth
-    replicaNo: 1
+    replicaNo: $(replicaNum)
+    dbURL: $(dbURL)
   dependsOn: Build
   jobs:
     - deployment: Deploy 
@@ -78,6 +79,24 @@ stages:
                     tokenPattern: 'custom'
                     tokenPrefix: '#'
                     tokenSuffix: '#'
+                    writeBOM: true
+                    actionOnMissing: 'warn'
+                    keepToken: false
+                    actionOnNoFiles: 'continue'
+                    enableTransforms: false
+                    enableRecursion: false
+                    useLegacyPattern: false
+                    enableTelemetry: true
+
+              - task: replacetokens@5
+                displayName: Replace Tokens
+                inputs:
+                    rootDirectory: '$(Build.SourcesDirectory)/src'
+                    targetFiles: 'config.jsx'
+                    encoding: 'auto'
+                    tokenPattern: 'custom'
+                    tokenPrefix: '`'
+                    tokenSuffix: '`'
                     writeBOM: true
                     actionOnMissing: 'warn'
                     keepToken: false
