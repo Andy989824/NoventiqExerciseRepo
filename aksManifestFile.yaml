@@ -5,7 +5,7 @@ metadata:
   labels:
     app: my-app-deployment-frontend-3
 spec:
-  replicas: 1
+  replicas: #replicaNo#
   selector:
     matchLabels:
       app: my-app-deployment-frontend-3
@@ -41,7 +41,7 @@ metadata:
   labels:
     app: my-app-deployment-backend-3
 spec:
-  replicas: 1
+  replicas: #replicaNo#
   selector:
     matchLabels:
       app: my-app-deployment-backend-3
