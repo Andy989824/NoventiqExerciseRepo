@@ -37,7 +37,7 @@ stages:
          $(serverTag)
     - task: PublishPipelineArtifact@1
       inputs:
-          targetPath: '$(Pipeline.Workspace)/s/aksManifestFile.yaml'
+          targetPath: '$(Pipeline.Workspace)/s/aksManifestFile2.yaml'
           artifact: 'manifests'
           publishLocation: 'pipeline'
 - stage: Deploy
