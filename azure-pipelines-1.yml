@@ -21,7 +21,7 @@ stages:
        containerRegistry: 'myappacr1998001'
        repository: '$(imageRepo)'
        command: 'buildAndPush'
-       Dockerfile: '$(Build.SourcesDirectory)/s/docker-compose.yaml'
+       Dockerfile: '$(Build.SourcesDirectory)/docker-compose.yaml'
        tags: |
          $(tag)
          latest
