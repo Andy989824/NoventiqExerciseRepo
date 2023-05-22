@@ -24,8 +24,16 @@ stages:
        command: 'buildAndPush'
        Dockerfile: |
         '$(Build.SourcesDirectory)/Dockerfile.app'
+       tags: |
+         $(tag)
+         latest
+    - task: Docker@2
+      inputs:
+       containerRegistry: 'myappacr1998001'
+       repository: '$(imageRepo)'
+       command: 'buildAndPush'
+       Dockerfile: |
         '$(Build.SourcesDirectory)/Dockerfile.server'
-
        tags: |
          $(tag)
          latest
