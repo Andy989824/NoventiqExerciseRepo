@@ -52,7 +52,6 @@ spec:
     spec:
       containers:
         - name: my-app-deployment-backend-3
-          image: andy989824/myfirstrepo:serverTag-1A
           image: sampleApp/$(serverTag)
           ports:
             - containerPort: 3001
