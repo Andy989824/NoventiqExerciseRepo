@@ -4,7 +4,7 @@ const cors = require("cors");
 const port = 3001;
 
 const corsOptions = {
-  origin: "http://20.43.145.10:3000",
+  origin: ["http://20.43.145.10:3000", "http://localhost:3000"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
