@@ -19,7 +19,9 @@ stages:
     displayName: Build
     pool: 'my-laptop-agent'
     steps:
-    - script: echo $(replicaNum)
+    - script: 'echo $(replicaNum)'
+    - script: 'echo $(dbURL)'
+
     - task: Docker@2
       inputs:
        containerRegistry: 'myappacr1998001'
