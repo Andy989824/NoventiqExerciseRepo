@@ -6,7 +6,8 @@ resources:
 
 variables:
   imageRepo: sampleApp
-  tag: '$(Build.BuildId)'
+  appTag: 'appTag-$(Build.BuildId)'
+  serverTag: 'serverTag-$(Build.BuildId)'
 
 stages:
 - stage: Build
