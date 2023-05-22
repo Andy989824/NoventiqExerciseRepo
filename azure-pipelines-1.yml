@@ -47,29 +47,29 @@ stages:
     acr-secret: aks-example-auth
   dependsOn: Build
   jobs:
-    - job: Deploy 
+    - deployment: Deploy 
       displayName: Deploy to AKS
+      environment: 'Andy989824NoventiqExerciseRepo-01.default'
       pool: 'my-laptop-agent'
-      steps: 
-        - task: DownloadPipelineArtifact@2
-          inputs:
-            buildType: 'current'
-            artifactName: 'manifests'
-            targetPath: '$(Pipeline.Workspace)/manifests'
-        - task: KubernetesManifest@1
-          inputs:
-            action: 'createSecret'
-            connectionType: 'kubernetesServiceConnection'
-            kubernetesServiceConnection: 'AKS-service-connection'
-            namespace: 'default'
-            secretType: 'dockerRegistry'
-            secretName: '$(acr-secret)'
-            dockerRegistryEndpoint: 'myappacr1998001'
-        - task: KubernetesManifest@1
-          inputs:
-            action: 'deploy'
-            connectionType: 'kubernetesServiceConnection'
-            kubernetesServiceConnection: 'AKS-service-connection'
-            namespace: 'default'
-            manifests: 
-              $(Pipeline.Workspace)/manifests/aksManifestFile.yaml
+      strategy:
+        runOnce:
+          deploy:
+            steps: 
+              - task: DownloadPipelineArtifact@2
+                inputs:
+                  buildType: 'current'
+                  artifactName: 'manifests'
+                  targetPath: '$(Pipeline.Workspace)/manifests'
+              - task: KubernetesManifest@1
+                inputs:
+                  action: 'createSecret'
+                  namespace: 'default'
+                  secretType: 'dockerRegistry'
+                  secretName: '$(acr-secret)'
+                  dockerRegistryEndpoint: 'myappacr1998001'
+              - task: KubernetesManifest@1
+                inputs:
+                  action: 'deploy'
+                  namespace: 'default'
+                  manifests: 
+                    $(Pipeline.Workspace)/manifests/aksManifestFile.yaml
