@@ -6,10 +6,7 @@ resources:
 
 
 variables:
-  group: 'my-variable-group-01'
-  imageRepo: sampleApp
-  appTag: 'appTag-$(Build.BuildId)'
-  serverTag: 'serverTag-$(Build.BuildId)'
+- group: my-variable-group-01
 
 stages:
 - stage: Build
@@ -19,8 +16,7 @@ stages:
     displayName: Build
     pool: 'my-laptop-agent'
     steps:
-    - script: 'echo $(replicaNum)'
-    - script: 'echo $(dbURL)'
+    - script: echo $(replicaNum)
 
     - task: Docker@2
       inputs:
