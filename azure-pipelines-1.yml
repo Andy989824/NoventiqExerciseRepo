@@ -6,7 +6,7 @@ resources:
 
 
 variables:
-  group: my-variable-group-01
+  group: 'my-variable-group-01'
   imageRepo: sampleApp
   appTag: 'appTag-$(Build.BuildId)'
   serverTag: 'serverTag-$(Build.BuildId)'
