@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: my-app-deployment-frontend-3
-          image: sampleApp:$(appTag)
+          image: $(imageRepo):$(appTag)
           ports:
             - containerPort: 3000
 ---
@@ -52,7 +52,7 @@ spec:
     spec:
       containers:
         - name: my-app-deployment-backend-3
-          image: sampleApp/$(serverTag)
+          image: $(imageRepo):$(serverTag)
           ports:
             - containerPort: 3001
 ---
