@@ -14,8 +14,7 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: my-laptop-agent
+    pool: 'my-laptop-agent'
     steps:
     - task: Docker@2
       inputs:
@@ -39,8 +38,7 @@ stages:
   jobs:
     - job: Deploy 
       displayName: Deploy to AKS
-      pool: 
-        vmImage: my-laptop-agent
+      pool: 'my-laptop-agent'
       steps: 
         - task: DownloadPipelineArtifact@2
           inputs:
