@@ -46,7 +46,7 @@ stages:
   variables:
     acr-devurl: 'myappacr1998001.azurecr.io'
     acr-secret: aks-example-auth
-    replicaNo: $(replicaNum)
+    replicaNo: 1
   dependsOn: Build
   jobs:
     - deployment: Deploy 
