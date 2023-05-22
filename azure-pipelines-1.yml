@@ -28,7 +28,7 @@ stages:
          latest
     - task: PublishPipelineArtifact@1
       inputs:
-          targetPath: '$(Pipeline.Workspace)/s/aksManifestFile'
+          targetPath: '$(Pipeline.Workspace)/s/aksManifestFile.yaml'
           artifact: 'manifests'
           publishLocation: 'pipeline'
 - stage: Deploy
