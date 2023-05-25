@@ -153,8 +153,8 @@ stages:
                     targetFiles: 'server.js'
                     encoding: 'auto'
                     tokenPattern: 'custom'
-                    tokenPrefix: '''
-                    tokenSuffix: '''
+                    tokenPrefix: '#'
+                    tokenSuffix: '#'
                     writeBOM: true
                     actionOnMissing: 'warn'
                     keepToken: false
