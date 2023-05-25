@@ -4,7 +4,7 @@ const cors = require("cors");
 const port = 3001;
 
 const corsOptions = {
-  origin: ["http://20.24.133.165:3000", "http://localhost:3000"],
+  origin: ["#frontendAPI#"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };

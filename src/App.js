@@ -23,9 +23,7 @@ export default function App() {
   useEffect(() => {
     const fetchHealthStatus = async () => {
       try {
-        const response = await axios.get(
-          "http://20.24.133.170:3001/api/health"
-        );
+        const response = await axios.get("#backendAPI#");
         setHealthStatus(response.data);
       } catch (error) {
         console.log("Failed to fetch health status:", error);
