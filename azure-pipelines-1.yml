@@ -114,6 +114,8 @@ stages:
                   containers: |
                     $(acr-devurl)/$(imageRepo):$(appTag)
                     $(acr-devurl)/$(imageRepo):$(serverTag)
+                  imagePullSecrets: $(acr-secret)
+
 
                   
                   
