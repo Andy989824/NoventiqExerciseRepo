@@ -19,7 +19,7 @@ stages:
     - script: |
         echo $(replicaNum) 
         echo $(imageRepo)
-        echo $(dbURL)
+        echo $(databaseURL)
     - task: Docker@2
       inputs:
        containerRegistry: 'myappacr1998001'
@@ -106,11 +106,16 @@ stages:
                     enableRecursion: false
                     useLegacyPattern: false
                     enableTelemetry: true
-              - task: KubernetesManifest@1
+              - task: KubernetesManifest@0
                 inputs:
                   action: 'deploy'
-                  connectionType: 'kubernetesServiceConnection'
                   namespace: 'default'
                   manifests: '$(Pipeline.Workspace)/manifests/aksManifestFile.yaml'
-                  containers: '$(acr-devurl)/$(imageRepo):$(serverTag), $(acr-devurl)/$(imageRepo):$(appTag)'
+                  containers: |
+                    $(acr-devurl)/$(imageRepo):$(appTag)
+                    $(acr-devurl)/$(imageRepo):$(serverTag)
+                  imagePullSecrets: $(acr-secret)
+
+
+                  
                   
