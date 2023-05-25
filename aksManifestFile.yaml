@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app-deployment-frontend-5
+  name: my-app-deployment-frontend-6
   labels:
-    app: my-app-deployment-frontend-5
+    app: my-app-deployment-frontend-6
 spec:
   replicas: #replicaNo#
   selector:
     matchLabels:
-      app: my-app-deployment-frontend-5
+      app: my-app-deployment-frontend-6
   template:
     metadata:
       labels:
-        app: my-app-deployment-frontend-5
+        app: my-app-deployment-frontend-6
     spec:
       containers:
-        - name: my-app-deployment-frontend-5
-          image: myappacr1998001.azurecr.io/sampleapp:appTag-002
+        - name: my-app-deployment-frontend-6
+          image: myappacr1998001.azurecr.io/sampleapp:appTag-001
           ports:
             - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-app-deployment-frontend-5
+  name: my-app-deployment-frontend-6
 spec:
   selector:
-    app: my-app-deployment-frontend-5
+    app: my-app-deployment-frontend-6
   ports:
     - protocol: TCP
       port: 3000
@@ -37,32 +37,32 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app-deployment-backend-5
+  name: my-app-deployment-backend-6
   labels:
-    app: my-app-deployment-backend-5
+    app: my-app-deployment-backend-6
 spec:
   replicas: #replicaNo#
   selector:
     matchLabels:
-      app: my-app-deployment-backend-5
+      app: my-app-deployment-backend-6
   template:
     metadata:
       labels:
-        app: my-app-deployment-backend-5
+        app: my-app-deployment-backend-6
     spec:
       containers:
-        - name: my-app-deployment-backend-5
-          image: myappacr1998001.azurecr.io/sampleapp:serverTag-002
+        - name: my-app-deployment-backend-6
+          image: myappacr1998001.azurecr.io/sampleapp:serverTag-001
           ports:
             - containerPort: 3001
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-app-deployment-backend-5
+  name: my-app-deployment-backend-6
 spec:
   selector:
-    app: my-app-deployment-backend-5
+    app: my-app-deployment-backend-6
   ports:
     - protocol: TCP
       port: 3001
