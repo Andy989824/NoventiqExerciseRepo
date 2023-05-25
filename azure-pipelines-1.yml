@@ -19,6 +19,7 @@ stages:
     - script: |
         echo $(replicaNum) 
         echo $(imageRepo)
+        echo $(dbURL)
     - task: Docker@2
       inputs:
        containerRegistry: 'myappacr1998001'
