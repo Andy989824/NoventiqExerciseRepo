@@ -4,10 +4,9 @@ trigger:
 resources:
 - repo: self
 
+
 variables:
-  imageRepo: sampleApp
-  appTag: 'appTag-$(Build.BuildId)'
-  serverTag: 'serverTag-$(Build.BuildId)'
+- group: my-variable-group-01
 
 stages:
 - stage: Build
@@ -17,11 +16,13 @@ stages:
     displayName: Build
     pool: 'my-laptop-agent'
     steps:
-    
+    - script: |
+        echo $(replicaNum) 
+        echo $(imageRepo)
     - task: Docker@2
       inputs:
        containerRegistry: 'myappacr1998001'
-       repository: '$(imageRepo)'
+       repository: $(imageRepo)
        command: 'buildAndPush'
        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile.app'
        tags: |
@@ -29,7 +30,7 @@ stages:
     - task: Docker@2
       inputs:
        containerRegistry: 'myappacr1998001'
-       repository: '$(imageRepo)'
+       repository: $(imageRepo)
        command: 'buildAndPush'
        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile.server'
        tags: |
@@ -44,7 +45,8 @@ stages:
   variables:
     acr-devurl: 'myappacr1998001.azurecr.io'
     acr-secret: aks-example-auth
-    replicaNo: 2
+    replicaNo: $(replicaNum)
+    dbURL: $(dbURL)
   dependsOn: Build
   jobs:
     - deployment: Deploy 
@@ -77,6 +79,24 @@ stages:
                     tokenPattern: 'custom'
                     tokenPrefix: '#'
                     tokenSuffix: '#'
+                    writeBOM: true
+                    actionOnMissing: 'warn'
+                    keepToken: false
+                    actionOnNoFiles: 'continue'
+                    enableTransforms: false
+                    enableRecursion: false
+                    useLegacyPattern: false
+                    enableTelemetry: true
+
+              - task: replacetokens@5
+                displayName: Replace Tokens
+                inputs:
+                    rootDirectory: '$(Build.SourcesDirectory)/src'
+                    targetFiles: 'config.jsx'
+                    encoding: 'auto'
+                    tokenPattern: 'custom'
+                    tokenPrefix: '`'
+                    tokenSuffix: '`'
                     writeBOM: true
                     actionOnMissing: 'warn'
                     keepToken: false
