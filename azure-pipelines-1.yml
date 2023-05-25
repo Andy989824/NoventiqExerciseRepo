@@ -50,6 +50,7 @@ stages:
     dbURL: $(databaseURL)
     frontendAPI: $(backend-API)
     backendAPI: $(frontend-API)
+    serverPort: $(server-port)
   dependsOn: Build
   jobs:
     - deployment: Deploy 
@@ -110,7 +111,7 @@ stages:
                     enableTelemetry: true
 
               - task: replacetokens@5
-                displayName: Replace Tokens (Host/Port) - app
+                displayName: Replace Tokens (app host)
                 inputs:
                     rootDirectory: '$(Build.SourcesDirectory)/src'
                     targetFiles: 'App.js'
@@ -128,7 +129,25 @@ stages:
                     enableTelemetry: true
 
               - task: replacetokens@5
-                displayName: Replace Tokens (Host/Port) - server
+                displayName: Replace Tokens (server host)
+                inputs:
+                    rootDirectory: '$(Build.SourcesDirectory)/src'
+                    targetFiles: 'server.js'
+                    encoding: 'auto'
+                    tokenPattern: 'custom'
+                    tokenPrefix: '#'
+                    tokenSuffix: '#'
+                    writeBOM: true
+                    actionOnMissing: 'warn'
+                    keepToken: false
+                    actionOnNoFiles: 'continue'
+                    enableTransforms: false
+                    enableRecursion: false
+                    useLegacyPattern: false
+                    enableTelemetry: true
+
+              - task: replacetokens@5
+                displayName: Replace Tokens (server port)
                 inputs:
                     rootDirectory: '$(Build.SourcesDirectory)/src'
                     targetFiles: 'server.js'
