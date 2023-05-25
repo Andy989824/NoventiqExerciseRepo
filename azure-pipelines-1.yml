@@ -96,8 +96,8 @@ stages:
                     targetFiles: 'config.jsx'
                     encoding: 'auto'
                     tokenPattern: 'custom'
-                    tokenPrefix: '`'
-                    tokenSuffix: '`'
+                    tokenPrefix: '#'
+                    tokenSuffix: '#'
                     writeBOM: true
                     actionOnMissing: 'warn'
                     keepToken: false
