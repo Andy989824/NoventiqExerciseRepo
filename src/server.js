@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const port = 3001;
-//2
+//3
 const corsOptions = {
   origin: ["#frontendAPI#"],
   credentials: true, //access-control-allow-credentials:true
