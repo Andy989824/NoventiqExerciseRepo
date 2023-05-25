@@ -48,6 +48,8 @@ stages:
     acr-secret: aks-example-auth
     replicaNo: $(replicaNum)
     dbURL: $(databaseURL)
+    frontendAPI: $(backend-API)
+    backendAPI: $(frontend-API)
   dependsOn: Build
   jobs:
     - deployment: Deploy 
@@ -72,7 +74,7 @@ stages:
                   dockerRegistryEndpoint: 'myappacr1998001'
 
               - task: replacetokens@5
-                displayName: Replace Tokens
+                displayName: Replace Token (replica number)
                 inputs:
                     rootDirectory: '$(Pipeline.Workspace)/manifests'
                     targetFiles: 'aksManifestFile.yaml'
@@ -90,10 +92,46 @@ stages:
                     enableTelemetry: true
 
               - task: replacetokens@5
-                displayName: Replace Tokens
+                displayName: Replace Tokens (Database URL)
                 inputs:
                     rootDirectory: '$(Build.SourcesDirectory)/src'
                     targetFiles: 'config.jsx'
+                    encoding: 'auto'
+                    tokenPattern: 'custom'
+                    tokenPrefix: '#'
+                    tokenSuffix: '#'
+                    writeBOM: true
+                    actionOnMissing: 'warn'
+                    keepToken: false
+                    actionOnNoFiles: 'continue'
+                    enableTransforms: false
+                    enableRecursion: false
+                    useLegacyPattern: false
+                    enableTelemetry: true
+
+              - task: replacetokens@5
+                displayName: Replace Tokens (Host/Port) - app
+                inputs:
+                    rootDirectory: '$(Build.SourcesDirectory)/src'
+                    targetFiles: 'App.js'
+                    encoding: 'auto'
+                    tokenPattern: 'custom'
+                    tokenPrefix: '#'
+                    tokenSuffix: '#'
+                    writeBOM: true
+                    actionOnMissing: 'warn'
+                    keepToken: false
+                    actionOnNoFiles: 'continue'
+                    enableTransforms: false
+                    enableRecursion: false
+                    useLegacyPattern: false
+                    enableTelemetry: true
+
+              - task: replacetokens@5
+                displayName: Replace Tokens (Host/Port) - server
+                inputs:
+                    rootDirectory: '$(Build.SourcesDirectory)/src'
+                    targetFiles: 'server.js'
                     encoding: 'auto'
                     tokenPattern: 'custom'
                     tokenPrefix: '#'
