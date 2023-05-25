@@ -38,7 +38,7 @@ stages:
          $(serverTag)
     - task: PublishPipelineArtifact@1
       inputs:
-          targetPath: '$(Pipeline.Workspace)/s/aksManifestFile.yaml'
+          targetPath: '$(Pipeline.Workspace)/s/published-aksManifestFile.yaml'
           artifact: 'manifests'
           publishLocation: 'pipeline'
 - stage: Deploy
@@ -47,7 +47,7 @@ stages:
     acr-devurl: 'myappacr1998001.azurecr.io'
     acr-secret: aks-example-auth
     replicaNo: $(replicaNum)
-    dbURL: $(dbURL)
+    dbURL: $(databaseURL)
   dependsOn: Build
   jobs:
     - deployment: Deploy 
