@@ -23,7 +23,9 @@ export default function App() {
   useEffect(() => {
     const fetchHealthStatus = async () => {
       try {
-        const response = await axios.get("http://20.44.255.20:3001/api/health");
+        const response = await axios.get(
+          "http://20.24.133.170:3001/api/health"
+        );
         setHealthStatus(response.data);
       } catch (error) {
         console.log("Failed to fetch health status:", error);
@@ -35,7 +37,8 @@ export default function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Hello World -Pipeline push-1</h1>
+        <h1>Hello World</h1>
+        <h6>Synced with Azure Pipelines</h6>
 
         {healthStatus ? (
           <p>
