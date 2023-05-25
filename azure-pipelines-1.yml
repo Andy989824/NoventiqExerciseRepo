@@ -74,8 +74,12 @@ stages:
               - task: replacetokens@5
                 displayName: Replace Tokens
                 inputs:
-                    rootDirectory: '$(Pipeline.Workspace)/manifests'
-                    targetFiles: 'aksManifestFile.yaml'
+                    rootDirectory: |
+                      '$(Pipeline.Workspace)/manifests'
+                      '$(Build.SourcesDirectory)/src'
+                    targetFiles: |
+                      'aksManifestFile.yaml'
+                      'config.jsx'
                     encoding: 'auto'
                     tokenPattern: 'custom'
                     tokenPrefix: '#'
@@ -89,23 +93,7 @@ stages:
                     useLegacyPattern: false
                     enableTelemetry: true
 
-              - task: replacetokens@5
-                displayName: Replace Tokens
-                inputs:
-                    rootDirectory: '$(Build.SourcesDirectory)/src'
-                    targetFiles: 'config.jsx'
-                    encoding: 'auto'
-                    tokenPattern: 'custom'
-                    tokenPrefix: '#'
-                    tokenSuffix: '#'
-                    writeBOM: true
-                    actionOnMissing: 'warn'
-                    keepToken: false
-                    actionOnNoFiles: 'continue'
-                    enableTransforms: false
-                    enableRecursion: false
-                    useLegacyPattern: false
-                    enableTelemetry: true
+
               - task: KubernetesManifest@0
                 inputs:
                   action: 'deploy'
