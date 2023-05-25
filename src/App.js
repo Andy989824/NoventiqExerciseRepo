@@ -16,6 +16,8 @@ onValue(getData, (item) => {
   console.log(data);
 });
 
+console.log("Database URL is getting from variable groups");
+
 //health check API
 export default function App() {
   const [healthStatus, setHealthStatus] = useState(null);
@@ -37,6 +39,7 @@ export default function App() {
       <header className="App-header">
         <h1>Hello World</h1>
         <h6>Synced with Azure Pipelines</h6>
+        <h6>BackendAPI: #backendAPI#</h6>
 
         {healthStatus ? (
           <p>
