@@ -20,7 +20,8 @@ app.get("/api/health", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello, world!");
+  console.log("hi");
+  res.send("Hello, world 123!");
 });
 
 // Start the server
