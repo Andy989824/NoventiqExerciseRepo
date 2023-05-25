@@ -112,5 +112,5 @@ stages:
                   connectionType: 'kubernetesServiceConnection'
                   namespace: 'default'
                   manifests: '$(Pipeline.Workspace)/manifests/aksManifestFile.yaml'
-                  containers: '$(acr-devurl)/$(imageRepo):$(serverTag), $(acr-devurl)/$(imageRepo):$(appTag)'
+                  containers: '$(acr-devurl)/$(imageRepo):$(appTag)'
                   
