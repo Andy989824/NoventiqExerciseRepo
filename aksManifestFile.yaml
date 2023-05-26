@@ -16,10 +16,7 @@ spec:
     spec:
       containers:
         - name: my-app-deployment-frontend-7
-          image: `${process.env.REACT_APP_DEPLOYMENT_FRONTEND_IMAGE}`
-          env:
-            - name: DBURL
-              value: "https://noventiq-exercise-db-default-rtdb.asia-southeast1.firebasedatabase.app/"
+          image: ${process.env.REACT_APP_DEPLOYMENT_FRONTEND_IMAGE}
           ports:
             - containerPort: 3000
 ---
@@ -55,10 +52,7 @@ spec:
     spec:
       containers:
         - name: my-app-deployment-backend-7
-          image: `${REACT_APP_DEPLOYMENT_BACKEND_IMAGE}`
-          env:
-            - name: DBURL
-              value: "https://noventiq-exercise-db-default-rtdb.asia-southeast1.firebasedatabase.app/"
+          image: ${REACT_APP_DEPLOYMENT_BACKEND_IMAGE}
           ports:
             - containerPort: 3001
 ---
