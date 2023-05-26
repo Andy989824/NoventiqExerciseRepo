@@ -24,13 +24,12 @@ stages:
               echo $(server-port)
 
           - task: DockerCompose@0
+            displayName: 'Build and Push Docker images'
             inputs:
-              containerregistrytype: 'Azure Container Registry'
-              azureSubscription: 'Visual Studio Enterprise Subscription – MPN(d957954d-fa30-4f4d-aed1-d1aea92276c7)'
-              azureContainerRegistry: '{"loginServer":"myappacr1998001.azurecr.io", "id" : "/subscriptions/d957954d-fa30-4f4d-aed1-d1aea92276c7/resourceGroups/aks-rg/providers/Microsoft.ContainerRegistry/registries/myappacr1998001"}'
+              action: 'Build services'
               dockerComposeFile: '$(Build.SourcesDirectory)/docker-compose.yml'
-              action: 'Run a Docker Compose command'
-              
+              additionalImageTags: '$(Build.BuildId)'
+              includeLatestTag: true
           - task: PublishPipelineArtifact@1
             inputs:
               targetPath: "$(Pipeline.Workspace)/s/aksManifestFile.yaml"
