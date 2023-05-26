@@ -22,20 +22,16 @@ stages:
               echo $(frontend-API)
               echo $(backend-API)
               echo $(server-port)
-          - task: Docker@2
+
+          - task: DockerCompose@0
+            displayName: 'Build and Push Docker images'
             inputs:
               containerRegistry: "myappacr1998001"
               repository: $(imageRepo)
-              command: "buildAndPush"
-              Dockerfile: "$(Build.SourcesDirectory)/Dockerfile.app"
-              tags: $(appTag)
-          - task: Docker@2
-            inputs:
-              containerRegistry: "myappacr1998001"
-              repository: $(imageRepo)
-              command: "buildAndPush"
-              Dockerfile: "$(Build.SourcesDirectory)/Dockerfile.server"
-              tags: $(serverTag)
+              action: 'Build services'
+              dockerComposeFile: '$(Build.SourcesDirectory)/docker-compose.yml'
+              additionalImageTags: '$(Build.BuildId)'
+              includeLatestTag: true
           - task: PublishPipelineArtifact@1
             inputs:
               targetPath: "$(Pipeline.Workspace)/s/aksManifestFile.yaml"
