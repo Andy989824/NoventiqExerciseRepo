@@ -1,164 +1,161 @@
 trigger:
-- main
+  - main
 
 resources:
-- repo: self
-
+  - repo: self
 
 variables:
-- group: my-variable-group-01
+  - group: my-variable-group-01
 
 stages:
-- stage: Build
-  displayName: Build image
-  jobs:
-  - job: Build
-    displayName: Build
-    pool: 'my-laptop-agent'
-    steps:
-    - script: |
-        echo $(replicaNum) 
-        echo $(imageRepo)
-        echo $(databaseURL)
-        echo $(frontend-API)
-        echo $(backend-API)
-        echo $(server-port)
-    - task: Docker@2
-      inputs:
-       containerRegistry: 'myappacr1998001'
-       repository: $(imageRepo)
-       command: 'buildAndPush'
-       Dockerfile: '$(Build.SourcesDirectory)/Dockerfile.app'
-       tags: |
-         $(appTag)
-    - task: Docker@2
-      inputs:
-       containerRegistry: 'myappacr1998001'
-       repository: $(imageRepo)
-       command: 'buildAndPush'
-       Dockerfile: '$(Build.SourcesDirectory)/Dockerfile.server'
-       tags: |
-         $(serverTag)
-    - task: PublishPipelineArtifact@1
-      inputs:
-          targetPath: '$(Pipeline.Workspace)/s/aksManifestFile.yaml'
-          artifact: 'manifests'
-          publishLocation: 'pipeline'
-- stage: Deploy
-  displayName: Deploy to Dev
-  variables:
-    acr-devurl: 'myappacr1998001.azurecr.io'
-    acr-secret: aks-example-auth
-    replicaNo: $(replicaNum)
-    dbURL: $(databaseURL)
-    frontendAPI: $(backend-API)
-    backendAPI: $(frontend-API)
-    serverPort: $(server-port)
-  dependsOn: Build
-  jobs:
-    - deployment: Deploy 
-      displayName: Deploy to AKS
-      environment: 'Andy989824NoventiqExerciseRepo-01.default'
-      pool: 'my-laptop-agent'
-      strategy:
-        runOnce:
-          deploy:
-            steps: 
-              - task: DownloadPipelineArtifact@2
-                inputs:
-                  buildType: 'current'
-                  artifactName: 'manifests'
-                  targetPath: '$(Pipeline.Workspace)/manifests'
-              - task: KubernetesManifest@1
-                inputs:
-                  action: 'createSecret'
-                  namespace: 'default'
-                  secretType: 'dockerRegistry'
-                  secretName: '$(acr-secret)'
-                  dockerRegistryEndpoint: 'myappacr1998001'
+  - stage: Build
+    displayName: Build image
+    jobs:
+      - job: Build
+        displayName: Build
+        pool: "my-laptop-agent"
+        steps:
+          - script: |
+              echo $(replicaNum) 
+              echo $(imageRepo)
+              echo $(databaseURL)
+              echo $(frontend-API)
+              echo $(backend-API)
+              echo $(server-port)
+          - task: Docker@2
+            inputs:
+              containerRegistry: "myappacr1998001"
+              repository: $(imageRepo)
+              command: "buildAndPush"
+              Dockerfile: "$(Build.SourcesDirectory)/Dockerfile.app"
+              tags: |
+                $(appTag)
+          - task: Docker@2
+            inputs:
+              containerRegistry: "myappacr1998001"
+              repository: $(imageRepo)
+              command: "buildAndPush"
+              Dockerfile: "$(Build.SourcesDirectory)/Dockerfile.server"
+              tags: |
+                $(serverTag)
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: "$(Pipeline.Workspace)/s/aksManifestFile.yaml"
+              artifact: "manifests"
+              publishLocation: "pipeline"
+  - stage: Deploy
+    displayName: Deploy to Dev
+    variables:
+      acr-devurl: "myappacr1998001.azurecr.io"
+      acr-secret: aks-example-auth
+      replicaNo: $(replicaNum)
+      dbURL: $(databaseURL)
+      frontendAPI: $(backend-API)
+      backendAPI: $(frontend-API)
+      serverPort: $(server-port)
+    dependsOn: Build
+    jobs:
+      - deployment: Deploy
+        displayName: Deploy to AKS
+        environment: "Andy989824NoventiqExerciseRepo-01.default"
+        pool: "my-laptop-agent"
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: DownloadPipelineArtifact@2
+                  inputs:
+                    buildType: "current"
+                    artifactName: "manifests"
+                    targetPath: "$(Pipeline.Workspace)/manifests"
+                - task: KubernetesManifest@1
+                  inputs:
+                    action: "createSecret"
+                    namespace: "default"
+                    secretType: "dockerRegistry"
+                    secretName: "$(acr-secret)"
+                    dockerRegistryEndpoint: "myappacr1998001"
 
-              - task: replacetokens@5
-                displayName: Replace Token (replica number)
-                inputs:
-                    rootDirectory: '$(Pipeline.Workspace)/manifests'
-                    targetFiles: 'aksManifestFile.yaml'
-                    encoding: 'auto'
-                    tokenPattern: 'custom'
-                    tokenPrefix: '#'
-                    tokenSuffix: '#'
+                - task: replacetokens@5
+                  displayName: Replace Token (replica number)
+                  inputs:
+                    rootDirectory: "$(Pipeline.Workspace)/manifests"
+                    targetFiles: "aksManifestFile.yaml"
+                    encoding: "auto"
+                    tokenPattern: "custom"
+                    tokenPrefix: "#"
+                    tokenSuffix: "#"
                     writeBOM: true
-                    actionOnMissing: 'warn'
+                    actionOnMissing: "warn"
                     keepToken: false
-                    actionOnNoFiles: 'continue'
+                    actionOnNoFiles: "continue"
                     enableTransforms: false
                     enableRecursion: false
                     useLegacyPattern: false
                     enableTelemetry: true
 
-              - task: replacetokens@5
-                displayName: Replace Tokens (Database URL)
-                inputs:
-                    rootDirectory: '$(Build.SourcesDirectory)/src'
-                    targetFiles: 'config.jsx'
-                    encoding: 'auto'
-                    tokenPattern: 'custom'
-                    tokenPrefix: '#'
-                    tokenSuffix: '#'
+                - task: replacetokens@5
+                  displayName: Replace Tokens (Database URL)
+                  inputs:
+                    rootDirectory: "$(Build.SourcesDirectory)/src"
+                    targetFiles: "config.jsx"
+                    encoding: "auto"
+                    tokenPattern: "custom"
+                    tokenPrefix: "#"
+                    tokenSuffix: "#"
                     writeBOM: true
-                    actionOnMissing: 'warn'
+                    actionOnMissing: "warn"
                     keepToken: false
-                    actionOnNoFiles: 'continue'
+                    actionOnNoFiles: "continue"
                     enableTransforms: false
                     enableRecursion: false
                     useLegacyPattern: false
                     enableTelemetry: true
 
-              - task: replacetokens@5
-                displayName: Replace Tokens (app host)
-                inputs:
-                    rootDirectory: '$(Build.SourcesDirectory)/src'
-                    targetFiles: 'App.js'
-                    encoding: 'auto'
-                    tokenPattern: 'custom'
-                    tokenPrefix: '#'
-                    tokenSuffix: '#'
+                - task: replacetokens@5
+                  displayName: Replace Tokens (app host)
+                  inputs:
+                    rootDirectory: "$(Build.SourcesDirectory)/src"
+                    targetFiles: "App.js"
+                    encoding: "auto"
+                    tokenPattern: "custom"
+                    tokenPrefix: "#"
+                    tokenSuffix: "#"
                     writeBOM: true
-                    actionOnMissing: 'warn'
+                    actionOnMissing: "warn"
                     keepToken: false
-                    actionOnNoFiles: 'continue'
+                    actionOnNoFiles: "continue"
                     enableTransforms: false
                     enableRecursion: false
                     useLegacyPattern: false
                     enableTelemetry: true
 
-              - task: replacetokens@5
-                displayName: Replace Tokens (server host)
-                inputs:
-                    rootDirectory: '$(Build.SourcesDirectory)/src'
-                    targetFiles: 'server.js'
-                    encoding: 'auto'
-                    tokenPattern: 'custom'
-                    tokenPrefix: '#'
-                    tokenSuffix: '#'
+                - task: replacetokens@5
+                  displayName: Replace Tokens (server host)
+                  inputs:
+                    rootDirectory: "$(Build.SourcesDirectory)/src"
+                    targetFiles: "server.js"
+                    encoding: "auto"
+                    tokenPattern: "custom"
+                    tokenPrefix: "#"
+                    tokenSuffix: "#"
                     writeBOM: true
-                    actionOnMissing: 'warn'
+                    actionOnMissing: "warn"
                     keepToken: false
-                    actionOnNoFiles: 'continue'
+                    actionOnNoFiles: "continue"
                     enableTransforms: false
                     enableRecursion: false
                     useLegacyPattern: false
                     enableTelemetry: true
 
-
-              - task: KubernetesManifest@0
-                inputs:
-                  action: 'deploy'
-                  namespace: 'default'
-                  manifests: '$(Pipeline.Workspace)/manifests/aksManifestFile.yaml'
-                  containers: |
-                    $(acr-devurl)/$(imageRepo):$(appTag)
-                    $(acr-devurl)/$(imageRepo):$(serverTag)
-
-
-                  
-                  
+                - task: KubernetesManifest@0
+                  inputs:
+                    action: "deploy"
+                    namespace: "default"
+                    manifests: "$(Pipeline.Workspace)/manifests/aksManifestFile.yaml"
+                    containers: |
+                      $(acr-devurl)/$(imageRepo):$(appTag)
+                      $(acr-devurl)/$(imageRepo):$(serverTag)
+                    imagePullSecrets:
+                      - name: $(acr-secret)
+:
