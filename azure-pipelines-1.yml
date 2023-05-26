@@ -151,8 +151,5 @@ stages:
                     action: 'deploy'
                     namespace: 'default'
                     manifests: '$(Pipeline.Workspace)/manifests/aksManifestFile.yaml'
-                    containers: |
-                      $(acr-devurl)/$(imageRepo):$(appTag)
-                      $(acr-devurl)/$(imageRepo):$(serverTag)
-                    imagePullSecrets: '$(acr-secret)'
+
 
