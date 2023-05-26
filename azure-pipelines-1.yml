@@ -20,7 +20,7 @@ stages:
         echo $(replicaNum) 
         echo $(imageRepo)
         echo $(databaseURL)
-        echo $(fronted-API)
+        echo $(frontend-API)
         echo $(backend-API)
         echo $(server-port)
     - task: Docker@2
