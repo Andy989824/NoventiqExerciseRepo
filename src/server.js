@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const port = 3001;
-//3
+
 const corsOptions = {
   origin: ["#frontendAPI#"],
   credentials: true, //access-control-allow-credentials:true
@@ -21,7 +21,7 @@ app.get("/api/health", (req, res) => {
 
 app.get("/", (req, res) => {
   console.log("hi");
-  res.send("Hello, world #frontendAPI#!");
+  res.send("Hello, world!");
 });
 
 // Start the server

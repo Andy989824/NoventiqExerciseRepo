@@ -1,7 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from "firebase/database";
 
-
 const firebaseConfig = {
 
     apiKey: "AIzaSyDGgTNd7hLe-816Cdy_tSPTyTLydGFYBTs",
@@ -10,8 +9,9 @@ const firebaseConfig = {
     storageBucket: "noventiq-exercise-db.appspot.com",
     messagingSenderId: "391159275978",
     appId: "1:391159275978:web:f057e4c7968cb6d995ef33",
-    databaseURL: "#dbURL#",
+    //databaseURL: "#dbURL#",
     //databaseURL: "https://noventiq-exercise-db-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    databaseURL: process.env.DB_URL,
 
 };
 
