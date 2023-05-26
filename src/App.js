@@ -16,7 +16,7 @@ onValue(getData, (item) => {
   console.log(data);
 });
 
-const logg = proccess.env.DBURL;
+const logg = process.env.DBURL;
 console.log(logg);
 console.log(process.env.DBURL);
 
