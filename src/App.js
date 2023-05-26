@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { db } from "./config";
 import { ref, update, onValue } from "firebase/database";
 
+console.log(DB_URL);
 //Firebase
 const getData = ref(db, "/food");
 
