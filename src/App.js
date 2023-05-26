@@ -17,7 +17,7 @@ onValue(getData, (item) => {
 });
 
 const logg = process.env.DBURL;
-console.log(logg);
+console.log(`${DBURL}`);
 console.log(process.env.DBURL);
 
 //health check API
