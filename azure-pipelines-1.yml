@@ -26,6 +26,7 @@ stages:
           - task: DockerCompose@0
             displayName: 'Build and Push Docker images'
             inputs:
+              containerRegistry: "myappacr1998001"
               action: 'Build services'
               dockerComposeFile: '$(Build.SourcesDirectory)/docker-compose.yml'
               additionalImageTags: '$(Build.BuildId)'
