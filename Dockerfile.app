@@ -15,7 +15,7 @@ COPY . ./
 
 
 # Set environment variables
-ENV DB_URL = "https://noventiq-exercise-db-default-rtdb.asia-southeast1.firebasedatabase.app/"
+ENV DBURL = "https://noventiq-exercise-db-default-rtdb.asia-southeast1.firebasedatabase.app/"
 
 EXPOSE 3000
 
