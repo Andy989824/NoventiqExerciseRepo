@@ -16,6 +16,10 @@ onValue(getData, (item) => {
   console.log(data);
 });
 
+const logg = proccess.env.DBURL;
+console.log(logg);
+console.log(process.env.DBURL);
+
 //health check API
 export default function App() {
   const [healthStatus, setHealthStatus] = useState(null);
