@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app-deployment-frontend-6
+  name: my-app-deployment-frontend-7
   labels:
-    app: my-app-deployment-frontend-6
+    app: my-app-deployment-frontend-7
 spec:
   replicas: #replicaNo#
   selector:
     matchLabels:
-      app: my-app-deployment-frontend-6
+      app: my-app-deployment-frontend-7
   template:
     metadata:
       labels:
-        app: my-app-deployment-frontend-6
+        app: my-app-deployment-frontend-7
     spec:
       containers:
-        - name: my-app-deployment-frontend-6
+        - name: my-app-deployment-frontend-7
           image: myappacr1998001.azurecr.io/sampleapp:appTag-003
           ports:
             - containerPort: 3000
@@ -23,10 +23,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-app-deployment-frontend-6
+  name: my-app-deployment-frontend-7
 spec:
   selector:
-    app: my-app-deployment-frontend-6
+    app: my-app-deployment-frontend-7
   ports:
     - protocol: TCP
       port: 3000
@@ -37,21 +37,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app-deployment-backend-6
+  name: my-app-deployment-backend-7
   labels:
-    app: my-app-deployment-backend-6
+    app: my-app-deployment-backend-7
 spec:
   replicas: #replicaNo#
   selector:
     matchLabels:
-      app: my-app-deployment-backend-6
+      app: my-app-deployment-backend-7
   template:
     metadata:
       labels:
-        app: my-app-deployment-backend-6
+        app: my-app-deployment-backend-7
     spec:
       containers:
-        - name: my-app-deployment-backend-6
+        - name: my-app-deployment-backend-7
           image: myappacr1998001.azurecr.io/sampleapp:serverTag-003
           ports:
             - containerPort: 3001
@@ -59,10 +59,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-app-deployment-backend-6
+  name: my-app-deployment-backend-7
 spec:
   selector:
-    app: my-app-deployment-backend-6
+    app: my-app-deployment-backend-7
   ports:
     - protocol: TCP
       port: 3001
