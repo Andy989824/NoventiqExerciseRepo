@@ -113,7 +113,7 @@ stages:
                 - task: replacetokens@5
                   displayName: Replace Tokens (app host)
                   inputs:
-                    rootDirectory: "$(Pipeline.Workspace)/src"
+                    rootDirectory: "$(Pipeline.Workspace)/s/src"
                     targetFiles: "App.js"
                     encoding: "auto"
                     tokenPattern: "custom"
@@ -131,7 +131,7 @@ stages:
                 - task: replacetokens@5
                   displayName: Replace Tokens (server host)
                   inputs:
-                    rootDirectory: "$(Pipeline.Workspace)/src"
+                    rootDirectory: "$(Pipeline.Workspace)/s/src"
                     targetFiles: "server.js"
                     encoding: "auto"
                     tokenPattern: "custom"
