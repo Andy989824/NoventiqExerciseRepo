@@ -20,6 +20,9 @@ stages:
         echo $(replicaNum) 
         echo $(imageRepo)
         echo $(databaseURL)
+        echo $(fronted-API)
+        echo $(backend-API)
+        echo $(server-port)
     - task: Docker@2
       inputs:
        containerRegistry: 'myappacr1998001'
