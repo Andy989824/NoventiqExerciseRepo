@@ -150,11 +150,11 @@ stages:
 
                 - task: KubernetesManifest@0
                   inputs:
-                    action: "deploy"
-                    namespace: "default"
-                    manifests: "$(Pipeline.Workspace)/manifests/aksManifestFile.yaml"
+                    action: 'deploy'
+                    namespace: 'default'
+                    manifests: '$(Pipeline.Workspace)/manifests/aksManifestFile.yaml'
                     containers: |
                       $(acr-devurl)/$(imageRepo):$(appTag)
                       $(acr-devurl)/$(imageRepo):$(serverTag)
-                    imagePullSecrets:
-                      - name: $(acr-secret)
+                    imagePullSecrets: '$(acr-secret)'
+
