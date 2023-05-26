@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: my-app-deployment-frontend-7
-          image: myappacr1998001.azurecr.io/sampleapp-002:#appTag#
+          image: ${DEPLOYMENT_FRONTEND_IMAGE}
           ports:
             - containerPort: 3000
 ---
