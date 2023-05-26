@@ -23,22 +23,21 @@ stages:
               echo $(backend-API)
               echo $(server-port)
 
-          - task: DockerCompose@0
-            displayName: 'Container Registry Login'
+          - task: Docker@2
             inputs:
-              containerregistrytype: 'Azure Container Registry'
-              azureContainerRegistry: "myappacr1998001"
-              action: 'Build services'
-              dockerComposeFile: '$(Build.SourcesDirectory)/docker-compose.yml'
+              containerRegistry: "myappacr1998001"
+              repository: $(imageRepo)
+              command: "buildAndPush"
+              Dockerfile: "$(Build.SourcesDirectory)/Dockerfile.app"
+              tags: $(appTag)
+          - task: Docker@2
+            inputs:
+              containerRegistry: "myappacr1998001"
+              repository: $(imageRepo)
+              command: "buildAndPush"
+              Dockerfile: "$(Build.SourcesDirectory)/Dockerfile.server"
+              tags: $(serverTag)
 
-          - task: DockerCompose@0
-            inputs:
-              containerregistrytype: 'Azure Container Registry'
-              azureContainerRegistry: "myappacr1998001"
-              action: 'Push services'
-              dockerComposeFile: '$(Build.SourcesDirectory)/docker-compose.yml'
-              includeLatestTag: true
-              includeSourceTags: true
           - task: PublishPipelineArtifact@1
             inputs:
               targetPath: "$(Pipeline.Workspace)/s/aksManifestFile.yaml"
@@ -49,7 +48,7 @@ stages:
             inputs:
               targetPath: "$(Pipeline.Workspace)/s/src/config.jsx"
               artifact: "manifests2"
-              publishLocation: "pipeline"             
+              publishLocation: "pipeline"
   - stage: Deploy
     displayName: Deploy to Dev
     variables:
@@ -162,8 +161,6 @@ stages:
 
                 - task: KubernetesManifest@0
                   inputs:
-                    action: 'deploy'
-                    namespace: 'default'
-                    manifests: '$(Pipeline.Workspace)/manifests/aksManifestFile.yaml'
-
-
+                    action: "deploy"
+                    namespace: "default"
+                    manifests: "$(Pipeline.Workspace)/manifests/aksManifestFile.yaml"

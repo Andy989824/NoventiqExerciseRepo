@@ -2,12 +2,6 @@ version: '3.8'
 
 services:
   ndserver:
-
-    image: myappacr1998001/sampleapp-002:image123
-    environment: 
-      DB_URL: "https://noventiq-exercise-db-default-rtdb.asia-southeast1.firebasedatabase.app/"
-    env_file:
-      - .env
     build:
       context: .
       dockerfile: Dockerfile.server
