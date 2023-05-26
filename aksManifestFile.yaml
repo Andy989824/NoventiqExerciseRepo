@@ -17,6 +17,9 @@ spec:
       containers:
         - name: my-app-deployment-frontend-7
           image: myappacr1998001.azurecr.io/sampleapp-002:#appTag#
+          env:
+            - name: DBURL
+              value: "https://noventiq-exercise-db-default-rtdb.asia-southeast1.firebasedatabase.app/"
           ports:
             - containerPort: 3000
 ---

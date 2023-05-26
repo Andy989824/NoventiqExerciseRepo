@@ -11,7 +11,7 @@ const firebaseConfig = {
     appId: "1:391159275978:web:f057e4c7968cb6d995ef33",
     //databaseURL: "#dbURL#",
     //databaseURL: "https://noventiq-exercise-db-default-rtdb.asia-southeast1.firebasedatabase.app/"
-    databaseURL: "{#dbURL#}"
+    databaseURL: process.env.DBURL
 };
 
 const app = initializeApp(firebaseConfig);
