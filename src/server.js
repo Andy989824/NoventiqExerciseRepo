@@ -21,7 +21,7 @@ app.get("/api/health", (req, res) => {
 
 app.get("/", (req, res) => {
   console.log("hi");
-  res.send("Hello, world 123!");
+  res.send("Hello, world #frontendAPI#!");
 });
 
 // Start the server
