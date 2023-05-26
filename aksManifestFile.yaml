@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: my-app-deployment-frontend-7
-          image: myappacr1998001.azurecr.io/sampleapp-002
+          image: myappacr1998001.azurecr.io/sampleapp-002:#appTag#
           ports:
             - containerPort: 3000
 ---
@@ -52,7 +52,7 @@ spec:
     spec:
       containers:
         - name: my-app-deployment-backend-7
-          image: myappacr1998001.azurecr.io/sampleapp-002
+          image: myappacr1998001.azurecr.io/sampleapp-002:#serverTag#
           ports:
             - containerPort: 3001
 ---
