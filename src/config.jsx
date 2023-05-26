@@ -10,8 +10,8 @@ const firebaseConfig = {
     messagingSenderId: "391159275978",
     appId: "1:391159275978:web:f057e4c7968cb6d995ef33",
     //databaseURL: "#dbURL#",
-    databaseURL: "https://noventiq-exercise-db-default-rtdb.asia-southeast1.firebasedatabase.app/"
-
+    //databaseURL: "https://noventiq-exercise-db-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    databaseURL: "{#dbURL#}"
 };
 
 const app = initializeApp(firebaseConfig);
