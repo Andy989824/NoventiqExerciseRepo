@@ -24,14 +24,21 @@ stages:
               echo $(server-port)
 
           - task: DockerCompose@0
-            displayName: 'Build and Push Docker images'
+            displayName: 'Container Registry Login'
             inputs:
-              containerRegistry: "myappacr1998001"
-              repository: $(imageRepo)
+              containerregistrytype: 'Azure Container Registry'
+              azureContainerRegistry: "myappacr1998001"
               action: 'Build services'
               dockerComposeFile: '$(Build.SourcesDirectory)/docker-compose.yml'
-              additionalImageTags: '$(Build.BuildId)'
+
+          - task: DockerCompose@0
+            inputs:
+              containerregistrytype: 'Azure Container Registry'
+              azureContainerRegistry: "myappacr1998001"
+              action: 'Push services'
+              dockerComposeFile: '$(Build.SourcesDirectory)/docker-compose.yml'
               includeLatestTag: true
+              includeSourceTags: true
           - task: PublishPipelineArtifact@1
             inputs:
               targetPath: "$(Pipeline.Workspace)/s/aksManifestFile.yaml"
