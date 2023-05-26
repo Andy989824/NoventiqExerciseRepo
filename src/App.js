@@ -16,9 +16,8 @@ onValue(getData, (item) => {
   console.log(data);
 });
 
-const logg = process.env.DBURL;
-console.log(`${process.env.REACT_APP_DBURL}`);
-console.log(process.env.DBURL);
+console.log(`${process.env.REACT_APP_BACKEND_API}`);
+console.log(`${process.env.REACT_APP_FRONTEND_API}`);
 
 //health check API
 export default function App() {
@@ -26,7 +25,9 @@ export default function App() {
   useEffect(() => {
     const fetchHealthStatus = async () => {
       try {
-        const response = await axios.get("#backendAPI#");
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_API}`
+        );
         setHealthStatus(response.data);
       } catch (error) {
         console.log("Failed to fetch health status:", error);
@@ -38,7 +39,7 @@ export default function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Hello World -05</h1>
+        <h1>Hello World -06 </h1>
 
         {healthStatus ? (
           <p>
