@@ -41,6 +41,12 @@ stages:
               targetPath: "$(Pipeline.Workspace)/s/aksManifestFile.yaml"
               artifact: "manifests"
               publishLocation: "pipeline"
+
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: "$(Pipeline.Workspace)/s/src/config.jsx"
+              artifact: "manifests2"
+              publishLocation: "pipeline"             
   - stage: Deploy
     displayName: Deploy to Dev
     variables:
@@ -66,6 +72,11 @@ stages:
                     buildType: "current"
                     artifactName: "manifests"
                     targetPath: "$(Pipeline.Workspace)/manifests"
+                - task: DownloadPipelineArtifact@2
+                  inputs:
+                    buildType: "current"
+                    artifactName: "manifests2"
+                    targetPath: "$(Pipeline.Workspace)/manifests2"
                 - task: KubernetesManifest@1
                   inputs:
                     action: "createSecret"
@@ -95,7 +106,7 @@ stages:
                 - task: replacetokens@5
                   displayName: Replace Tokens (Database URL)
                   inputs:
-                    rootDirectory: "$(Pipeline.Workspace)/s/src"
+                    rootDirectory: "$(Pipeline.Workspace)/manifest2"
                     targetFiles: "config.jsx"
                     encoding: "auto"
                     tokenPattern: "custom"
@@ -113,7 +124,7 @@ stages:
                 - task: replacetokens@5
                   displayName: Replace Tokens (app host)
                   inputs:
-                    rootDirectory: "$(Pipeline.Workspace)/s/src"
+                    rootDirectory: "$(Pipeline.Workspace)/manifest2"
                     targetFiles: "App.js"
                     encoding: "auto"
                     tokenPattern: "custom"
@@ -131,7 +142,7 @@ stages:
                 - task: replacetokens@5
                   displayName: Replace Tokens (server host)
                   inputs:
-                    rootDirectory: "$(Pipeline.Workspace)/s/src"
+                    rootDirectory: "$(Pipeline.Workspace)/manifest2"
                     targetFiles: "server.js"
                     encoding: "auto"
                     tokenPattern: "custom"
