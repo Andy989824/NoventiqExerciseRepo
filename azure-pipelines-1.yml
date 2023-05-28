@@ -110,7 +110,7 @@ stages:
                 - task: replacetokens@5
                   displayName: Replace Tokens (Database URL)
                   inputs:
-                    rootDirectory: "$(Pipeline.Workspace)/manifests"
+                    rootDirectory: "$(Pipeline.Workspace)/manifests/src"
                     targetFiles: "config.jsx"
                     encoding: "auto"
                     tokenPattern: "custom"
