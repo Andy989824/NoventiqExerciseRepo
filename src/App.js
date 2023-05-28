@@ -17,7 +17,8 @@ onValue(getData, (item) => {
 });
 
 console.log(process.env.REACT_APP_BE_API);
-console.log(process.env.REACT_APP_FE_API);
+console.log(`"${process.env.REACT_APP_FE_API}"`);
+console.log(`${process.env.REACT_APP_FE_API}`);
 console.log(process.env.REACT_APP_BE_PORT);
 
 //health check API
