@@ -15,7 +15,7 @@ stages:
         displayName: Build
         pool: "my-laptop-agent"
         steps:
-          - script: echo $(frontend-API)
+          - script: echo $(REACT_APP_FRONTEND_API)
 
           - task: replacetokens@5
             displayName: Replace Tokens (Database URL)
