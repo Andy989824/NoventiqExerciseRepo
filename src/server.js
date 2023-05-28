@@ -1,17 +1,10 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const port = 3001;
-require("dotenv").config();
-const MY_VARIABLE = `${process.env.REACT_APP_SERVERJS_PORT}`;
-
-const MY_VARIABLE2 = process.env.REACT_APP_SERVERJS_PORT;
-
-console.log(MY_VARIABLE);
-console.log(MY_VARIABLE2);
+const port = `${process.env.REACT_APP_BE_PORT}`;
 
 const corsOptions = {
-  origin: ["http://20.205.144.85:3000", "http://localhost:3000"],
+  origin: `${process.env.REACT_APP_FE_API}`,
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };

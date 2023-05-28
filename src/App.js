@@ -8,10 +8,6 @@ import React, { useEffect, useState } from "react";
 import { db } from "./config";
 import { ref, update, onValue } from "firebase/database";
 
-console.log(`${process.env.REACT_APP_BACKEND_API}`);
-console.log(`${process.env.REACT_APP_FRONTEND_API}`);
-console.log(`${process.env.REACT_APP_TEST}`);
-
 //Firebase
 const getData = ref(db, "/food");
 
@@ -20,15 +16,17 @@ onValue(getData, (item) => {
   console.log(data);
 });
 
+console.log(process.env.REACT_APP_BE_API);
+console.log(process.env.REACT_APP_FE_API);
+console.log(process.env.REACT_APP_BE_PORT);
+
 //health check API
 export default function App() {
   const [healthStatus, setHealthStatus] = useState(null);
   useEffect(() => {
     const fetchHealthStatus = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_API}`
-        );
+        const response = await axios.get(`${process.env.REACT_APP_BE_API}`);
         setHealthStatus(response.data);
       } catch (error) {
         console.log("Failed to fetch health status:", error);
