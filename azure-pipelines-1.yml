@@ -114,10 +114,10 @@ stages:
                     enableTelemetry: true
 
                 - task: replacetokens@5
-                  displayName: Replace Tokens (app host)
+                  displayName: Replace Tokens (env)
                   inputs:
-                    rootDirectory: "$(Pipeline.Workspace)/manifests/src"
-                    targetFiles: "App.js"
+                    rootDirectory: "$(Pipeline.Workspace)/manifests"
+                    targetFiles: ".env"
                     encoding: "auto"
                     tokenPattern: "custom"
                     tokenPrefix: "#{"
