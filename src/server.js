@@ -4,7 +4,7 @@ const cors = require("cors");
 const port = 3001;
 
 const corsOptions = {
-  origin: "http://20.205.144.85:3000",
+  origin: `${process.env.REACT_APP_FE_API}`,
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
