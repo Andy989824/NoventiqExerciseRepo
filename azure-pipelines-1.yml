@@ -158,9 +158,9 @@ stages:
                     tokenPrefix: "#{"
                     tokenSuffix: "}#"
                     writeBOM: true
-                    actionOnMissing: "fail"
+                    actionOnMissing: "warn"
                     keepToken: false
-                    actionOnNoFiles: "fail"
+                    actionOnNoFiles: "warn"
                     enableTransforms: false
                     enableRecursion: false
                     useLegacyPattern: false
