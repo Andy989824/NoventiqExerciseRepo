@@ -45,8 +45,6 @@ stages:
   - stage: Deploy
     displayName: Deploy to Dev
     variables:
-      acr-devurl: "myappacr1998001.azurecr.io"
-      acr-secret: aks-example-auth
       replicaNo: $(replicaNum)
       REACT_APP_DB: $(REACT_APP_DATABASE)
       dbURL: $(databaseURL)
@@ -64,6 +62,8 @@ stages:
           runOnce:
             deploy:
               steps:
+                - script: echo $(variable01)
+                - script: echo $(TestVariable)
                 - task: DownloadPipelineArtifact@2
                   inputs:
                     buildType: "current"
@@ -114,10 +114,10 @@ stages:
                     enableTelemetry: true
 
                 - task: replacetokens@5
-                  displayName: Replace Tokens (app host)
+                  displayName: Replace Tokens (env)
                   inputs:
-                    rootDirectory: "$(Pipeline.Workspace)/manifests/src"
-                    targetFiles: "App.js"
+                    rootDirectory: "$(Pipeline.Workspace)/manifests"
+                    targetFiles: ".env"
                     encoding: "auto"
                     tokenPattern: "custom"
                     tokenPrefix: "#{"
