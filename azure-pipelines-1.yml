@@ -144,7 +144,7 @@ stages:
                 - task: replacetokens@5
                   displayName: Replace Tokens (app host - 2)
                   inputs:
-                    rootDirectory: "$(Build.SourcesDirectory)/s/src"
+                    rootDirectory: "$(Build.SourcesDirectory)/src"
                     targetFiles: "App.js"
                     encoding: "auto"
                     tokenPattern: "custom"
