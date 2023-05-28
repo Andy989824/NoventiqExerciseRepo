@@ -18,6 +18,7 @@ onValue(getData, (item) => {
 
 console.log(`${process.env.REACT_APP_BACKEND_API}`);
 console.log(`${process.env.REACT_APP_FRONTEND_API}`);
+console.log(`${process.env.REACT_APP_TEST}`);
 
 //health check API
 export default function App() {

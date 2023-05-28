@@ -142,31 +142,14 @@ stages:
                     useLegacyPattern: false
                     enableTelemetry: true
                 - task: replacetokens@5
-                  displayName: Replace Tokens (app host - 2)
+                  displayName: Replace Tokens (env)
                   inputs:
-                    rootDirectory: "$(Build.SourcesDirectory)/src"
-                    targetFiles: "App.js"
+                    rootDirectory: "$(Build.SourcesDirectory)/"
+                    targetFiles: ".env"
                     encoding: "auto"
                     tokenPattern: "custom"
                     tokenPrefix: "#{"
                     tokenSuffix: "}#"
-                    writeBOM: true
-                    actionOnMissing: "warn"
-                    keepToken: false
-                    actionOnNoFiles: "continue"
-                    enableTransforms: false
-                    enableRecursion: false
-                    useLegacyPattern: false
-                    enableTelemetry: true
-                - task: replacetokens@5
-                  displayName: Replace Tokens (server host)
-                  inputs:
-                    rootDirectory: "$(Pipeline.Workspace)/manifests2"
-                    targetFiles: "server.js"
-                    encoding: "auto"
-                    tokenPattern: "custom"
-                    tokenPrefix: "#"
-                    tokenSuffix: "#"
                     writeBOM: true
                     actionOnMissing: "warn"
                     keepToken: false
