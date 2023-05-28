@@ -80,7 +80,7 @@ stages:
       acr-devurl: "myappacr1998001.azurecr.io"
       acr-secret: aks-example-auth
       replicaNo: $(replicaNum)
-      dbURL: $(databaseURL)
+      REACT_APP_DB: $(REACT_APP_DATABASE)
       frontendAPI: $(backend-API)
       backendAPI: $(frontend-API)
       serverPort: $(server-port)
