@@ -38,7 +38,7 @@ stages:
 
           - task: PublishPipelineArtifact@1
             inputs:
-              targetPath: "$(Pipeline.Workspace)/s/aksManifestFile.yaml"
+              targetPath: "$(Pipeline.Workspace)/s"
               artifact: "manifests"
               publishLocation: "pipeline"
 
@@ -48,30 +48,7 @@ stages:
               artifact: "manifests2"
               publishLocation: "pipeline"
             
-          - task: DownloadSecureFile@1
-            inputs:
-                secureFile: '.env'
-                retryCount: '2'
-          - task: CopyFiles@2
-            inputs:
-              SourceFolder: '$(Agent.TempDirectory)'
-              Contents: '.env'
-              TargetFolder: '$(Pipeline.Workspace)/s'
-          - task: CopyFiles@2
-            inputs:
-              SourceFolder: '$(Agent.TempDirectory)'
-              Contents: '.env'
-              TargetFolder: '$(Pipeline.Workspace)/'
-          - task: CopyFiles@2
-            inputs:
-              SourceFolder: '$(Agent.TempDirectory)'
-              Contents: '.env'
-              TargetFolder: '$(Pipeline.Workspace)/manifests'
-          - task: CopyFiles@2
-            inputs:
-              SourceFolder: '$(Agent.TempDirectory)'
-              Contents: '.env'
-              TargetFolder: '$(Pipeline.Workspace)/manifests2'
+
   - stage: Deploy
     displayName: Deploy to Dev
     variables:
@@ -133,7 +110,7 @@ stages:
                 - task: replacetokens@5
                   displayName: Replace Tokens (Database URL)
                   inputs:
-                    rootDirectory: "$(Pipeline.Workspace)/manifests2"
+                    rootDirectory: "$(Pipeline.Workspace)/manifests"
                     targetFiles: "config.jsx"
                     encoding: "auto"
                     tokenPattern: "custom"
