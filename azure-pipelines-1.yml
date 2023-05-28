@@ -59,6 +59,7 @@ stages:
       frontendAPI: $(backend-API)
       backendAPI: $(frontend-API)
       serverPort: $(server-port)
+      TestVariable: $(variable01)
     dependsOn: Build
     jobs:
       - deployment: Deploy
@@ -130,8 +131,8 @@ stages:
                     targetFiles: "App.js"
                     encoding: "auto"
                     tokenPattern: "custom"
-                    tokenPrefix: "#"
-                    tokenSuffix: "#"
+                    tokenPrefix: "#{"
+                    tokenSuffix: "}#"
                     writeBOM: true
                     actionOnMissing: "warn"
                     keepToken: false
