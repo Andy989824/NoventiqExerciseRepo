@@ -11,7 +11,7 @@ console.log(MY_VARIABLE);
 console.log(MY_VARIABLE2);
 
 const corsOptions = {
-  origin: ['http://20.205.144.85:3000", "http://localhost:3000'],
+  origin: ["http://20.205.144.85:3000", "http://localhost:3000"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
