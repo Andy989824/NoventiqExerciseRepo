@@ -45,8 +45,6 @@ stages:
   - stage: Deploy
     displayName: Deploy to Dev
     variables:
-      acr-devurl: "myappacr1998001.azurecr.io"
-      acr-secret: aks-example-auth
       replicaNo: $(replicaNum)
       REACT_APP_DB: $(REACT_APP_DATABASE)
       dbURL: $(databaseURL)
