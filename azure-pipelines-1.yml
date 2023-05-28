@@ -16,12 +16,10 @@ stages:
         pool: "my-laptop-agent"
         steps:
           - script: |
-              echo $(replicaNum) 
-              echo $(imageRepo)
-              echo $(databaseURL)
-              echo $(frontend-API)
-              echo $(backend-API)
-              echo $(server-port)
+              echo replicaNum: $(replicaNum) 
+              echo databaseURL: $(databaseURL)
+              echo REACT_APP_DATABASE: $(REACT_APP_DATABASE)
+
 
           - task: Docker@2
             inputs:
@@ -40,40 +38,10 @@ stages:
 
           - task: PublishPipelineArtifact@1
             inputs:
-              targetPath: "$(Pipeline.Workspace)/s/aksManifestFile.yaml"
+              targetPath: "$(Pipeline.Workspace)/s"
               artifact: "manifests"
               publishLocation: "pipeline"
 
-          - task: PublishPipelineArtifact@1
-            inputs:
-              targetPath: "$(Pipeline.Workspace)/s/src/config.jsx"
-              artifact: "manifests2"
-              publishLocation: "pipeline"
-            
-          - task: DownloadSecureFile@1
-            inputs:
-                secureFile: '.env'
-                retryCount: '2'
-          - task: CopyFiles@2
-            inputs:
-              SourceFolder: '$(Agent.TempDirectory)'
-              Contents: '.env'
-              TargetFolder: '$(Pipeline.Workspace)/s'
-          - task: CopyFiles@2
-            inputs:
-              SourceFolder: '$(Agent.TempDirectory)'
-              Contents: '.env'
-              TargetFolder: '$(Pipeline.Workspace)/'
-          - task: CopyFiles@2
-            inputs:
-              SourceFolder: '$(Agent.TempDirectory)'
-              Contents: '.env'
-              TargetFolder: '$(Pipeline.Workspace)/manifests'
-          - task: CopyFiles@2
-            inputs:
-              SourceFolder: '$(Agent.TempDirectory)'
-              Contents: '.env'
-              TargetFolder: '$(Pipeline.Workspace)/manifests2'
   - stage: Deploy
     displayName: Deploy to Dev
     variables:
@@ -81,6 +49,7 @@ stages:
       acr-secret: aks-example-auth
       replicaNo: $(replicaNum)
       REACT_APP_DB: $(REACT_APP_DATABASE)
+      dbURL: $(databaseURL)
       frontendAPI: $(backend-API)
       backendAPI: $(frontend-API)
       serverPort: $(server-port)
@@ -100,11 +69,6 @@ stages:
                     buildType: "current"
                     artifactName: "manifests"
                     targetPath: "$(Pipeline.Workspace)/manifests"
-                - task: DownloadPipelineArtifact@2
-                  inputs:
-                    buildType: "current"
-                    artifactName: "manifests2"
-                    targetPath: "$(Pipeline.Workspace)/manifests2"
                 - task: KubernetesManifest@1
                   inputs:
                     action: "createSecret"
@@ -116,16 +80,16 @@ stages:
                 - task: replacetokens@5
                   displayName: Replace Token (replica number)
                   inputs:
-                    rootDirectory: "$(Pipeline.Workspace)/manifests"
-                    targetFiles: "aksManifestFile.yaml"
-                    encoding: "auto"
-                    tokenPattern: "custom"
-                    tokenPrefix: "#"
-                    tokenSuffix: "#"
+                    rootDirectory: '$(Pipeline.Workspace)/manifests'
+                    targetFiles: 'aksManifestFile.yaml'
+                    encoding: 'auto'
+                    tokenPattern: 'custom'
+                    tokenPrefix: '#'
+                    tokenSuffix: '#'
                     writeBOM: true
-                    actionOnMissing: "warn"
+                    actionOnMissing: 'fail'
                     keepToken: false
-                    actionOnNoFiles: "continue"
+                    actionOnNoFiles: 'fail'
                     enableTransforms: false
                     enableRecursion: false
                     useLegacyPattern: false
@@ -134,16 +98,16 @@ stages:
                 - task: replacetokens@5
                   displayName: Replace Tokens (Database URL)
                   inputs:
-                    rootDirectory: "$(Pipeline.Workspace)/manifests2"
+                    rootDirectory: "$(Pipeline.Workspace)/manifests/src"
                     targetFiles: "config.jsx"
                     encoding: "auto"
                     tokenPattern: "custom"
-                    tokenPrefix: "#{"
-                    tokenSuffix: "}#"
+                    tokenPrefix: "#"
+                    tokenSuffix: "#"
                     writeBOM: true
                     actionOnMissing: "fail"
                     keepToken: false
-                    actionOnNoFiles: "continue"
+                    actionOnNoFiles: "fail"
                     enableTransforms: false
                     enableRecursion: false
                     useLegacyPattern: false
@@ -152,7 +116,7 @@ stages:
                 - task: replacetokens@5
                   displayName: Replace Tokens (app host)
                   inputs:
-                    rootDirectory: "$(Pipeline.Workspace)/manifests2"
+                    rootDirectory: "$(Pipeline.Workspace)/manifests/src"
                     targetFiles: "App.js"
                     encoding: "auto"
                     tokenPattern: "custom"
@@ -161,7 +125,7 @@ stages:
                     writeBOM: true
                     actionOnMissing: "warn"
                     keepToken: false
-                    actionOnNoFiles: "continue"
+                    actionOnNoFiles: "warn"
                     enableTransforms: false
                     enableRecursion: false
                     useLegacyPattern: false
