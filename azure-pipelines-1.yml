@@ -59,6 +59,12 @@ stages:
               SourceFolder: '$(Agent.TempDirectory)'
               Contents: '.env'
               TargetFolder: '$(Pipeline.Workspace)/s'
+
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: '$(Agent.TempDirectory)'
+              Contents: '.env'
+              TargetFolder: '$(Pipeline.Workspace)/manifests'
             
   - stage: Deploy
     displayName: Deploy to Dev
