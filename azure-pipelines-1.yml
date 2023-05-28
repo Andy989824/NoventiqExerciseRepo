@@ -16,7 +16,42 @@ stages:
         pool: "my-laptop-agent"
         steps:
           - script: echo $(frontend-API)
-          
+
+          - task: replacetokens@5
+            displayName: Replace Tokens (Database URL)
+            inputs:
+                  rootDirectory: "$(Build.SourcesDirectory)/src"
+                  targetFiles: "config.jsx"
+                  encoding: "auto"
+                  tokenPattern: "custom"
+                  tokenPrefix: "#"
+                  tokenSuffix: "#"
+                  writeBOM: true
+                  actionOnMissing: "fail"
+                  keepToken: false
+                  actionOnNoFiles: "fail"
+                  enableTransforms: false
+                  enableRecursion: false
+                  useLegacyPattern: false
+                  enableTelemetry: true
+
+          - task: replacetokens@5
+            displayName: Replace Tokens (env)
+            inputs:
+                    rootDirectory: "$(Build.SourcesDirectory)/"
+                    targetFiles: ".env"
+                    encoding: "auto"
+                    tokenPattern: "custom"
+                    tokenPrefix: "#{"
+                    tokenSuffix: "}#"
+                    writeBOM: true
+                    actionOnMissing: "warn"
+                    keepToken: false
+                    actionOnNoFiles: "warn"
+                    enableTransforms: false
+                    enableRecursion: false
+                    useLegacyPattern: false
+                    enableTelemetry: true
           - task: Docker@2
             inputs:
               containerRegistry: "myappacr1998001"
@@ -78,42 +113,6 @@ stages:
                     actionOnMissing: 'fail'
                     keepToken: false
                     actionOnNoFiles: 'fail'
-                    enableTransforms: false
-                    enableRecursion: false
-                    useLegacyPattern: false
-                    enableTelemetry: true
-
-                - task: replacetokens@5
-                  displayName: Replace Tokens (Database URL)
-                  inputs:
-                    rootDirectory: "$(Pipeline.Workspace)/manifests/src"
-                    targetFiles: "config.jsx"
-                    encoding: "auto"
-                    tokenPattern: "custom"
-                    tokenPrefix: "#"
-                    tokenSuffix: "#"
-                    writeBOM: true
-                    actionOnMissing: "fail"
-                    keepToken: false
-                    actionOnNoFiles: "fail"
-                    enableTransforms: false
-                    enableRecursion: false
-                    useLegacyPattern: false
-                    enableTelemetry: true
-
-                - task: replacetokens@5
-                  displayName: Replace Tokens (env)
-                  inputs:
-                    rootDirectory: "$(Pipeline.Workspace)/manifests"
-                    targetFiles: ".env"
-                    encoding: "auto"
-                    tokenPattern: "custom"
-                    tokenPrefix: "#{"
-                    tokenSuffix: "}#"
-                    writeBOM: true
-                    actionOnMissing: "warn"
-                    keepToken: false
-                    actionOnNoFiles: "warn"
                     enableTransforms: false
                     enableRecursion: false
                     useLegacyPattern: false
