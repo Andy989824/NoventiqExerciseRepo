@@ -52,7 +52,7 @@ stages:
 
             - task: PublishPipelineArtifact@1
             inputs:
-              targetPath: "$(Pipeline.Workspace)/.env"
+              targetPath: "$(Pipeline.Workspace)/s/.env"
               artifact: "manifests3"
               publishLocation: "pipeline"
   - stage: Deploy
