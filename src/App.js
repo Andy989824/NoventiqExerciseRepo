@@ -39,7 +39,7 @@ export default function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Hello World -07 {`#{TestVariable}`}</h1>
+        <h1>Hello World -07 {`#{TestVariable}#`}</h1>
 
         {healthStatus ? (
           <p>
