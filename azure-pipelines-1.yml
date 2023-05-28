@@ -64,6 +64,8 @@ stages:
           runOnce:
             deploy:
               steps:
+                - script: echo $(variable01)
+                - script: echo $(TestVariable)
                 - task: DownloadPipelineArtifact@2
                   inputs:
                     buildType: "current"
