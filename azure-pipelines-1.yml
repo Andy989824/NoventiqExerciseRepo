@@ -44,14 +44,6 @@ stages:
 
   - stage: Deploy
     displayName: Deploy to Dev
-    variables:
-      replicaNo: $(replicaNum)
-      REACT_APP_DB: $(REACT_APP_DATABASE)
-      dbURL: $(databaseURL)
-      frontendAPI: $(backend-API)
-      backendAPI: $(frontend-API)
-      serverPort: $(server-port)
-      TestVariable: $(variable01)
     dependsOn: Build
     jobs:
       - deployment: Deploy
