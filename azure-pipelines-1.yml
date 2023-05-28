@@ -49,6 +49,12 @@ stages:
               targetPath: "$(Pipeline.Workspace)/s/src/config.jsx"
               artifact: "manifests2"
               publishLocation: "pipeline"
+
+            - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: "$(Pipeline.Workspace)/.env"
+              artifact: "manifests3"
+              publishLocation: "pipeline"
   - stage: Deploy
     displayName: Deploy to Dev
     variables:
@@ -80,6 +86,11 @@ stages:
                     buildType: "current"
                     artifactName: "manifests2"
                     targetPath: "$(Pipeline.Workspace)/manifests2"
+                - task: DownloadPipelineArtifact@2
+                  inputs:
+                    buildType: "current"
+                    artifactName: "manifests3"
+                    targetPath: "$(Pipeline.Workspace)/manifests3"
                 - task: KubernetesManifest@1
                   inputs:
                     action: "createSecret"
@@ -144,7 +155,7 @@ stages:
                 - task: replacetokens@5
                   displayName: Replace Tokens (env)
                   inputs:
-                    rootDirectory: "$(Build.SourcesDirectory)/"
+                    rootDirectory: "$(Pipeline.Workspace)/manifests3"
                     targetFiles: ".env"
                     encoding: "auto"
                     tokenPattern: "custom"
