@@ -8,6 +8,10 @@ import React, { useEffect, useState } from "react";
 import { db } from "./config";
 import { ref, update, onValue } from "firebase/database";
 
+console.log(`${process.env.REACT_APP_BACKEND_API}`);
+console.log(`${process.env.REACT_APP_FRONTEND_API}`);
+console.log(`${process.env.REACT_APP_TEST}`);
+
 //Firebase
 const getData = ref(db, "/food");
 
@@ -15,10 +19,6 @@ onValue(getData, (item) => {
   const data = item.val();
   console.log(data);
 });
-
-console.log(`${process.env.REACT_APP_BACKEND_API}`);
-console.log(`${process.env.REACT_APP_FRONTEND_API}`);
-console.log(`${process.env.REACT_APP_TEST}`);
 
 //health check API
 export default function App() {
