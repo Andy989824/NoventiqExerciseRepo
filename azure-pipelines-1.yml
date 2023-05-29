@@ -21,7 +21,7 @@ stages:
             displayName: Replace Tokens (app.js)
             inputs:
                     rootDirectory: "$(Build.SourcesDirectory)/src"
-                    targetFiles: "app.js"
+                    targetFiles: "server.js"
                     encoding: "auto"
                     tokenPattern: "custom"
                     tokenPrefix: "#{"
