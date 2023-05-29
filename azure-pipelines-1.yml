@@ -18,22 +18,22 @@ stages:
           - script: echo $(REACT_APP_FRONTEND_API)
 
           - task: replacetokens@5
-            displayName: Replace Tokens (Database URL)
+            displayName: Replace Tokens (app.js)
             inputs:
-                  rootDirectory: "$(Build.SourcesDirectory)/src"
-                  targetFiles: "config.jsx"
-                  encoding: "auto"
-                  tokenPattern: "custom"
-                  tokenPrefix: "#"
-                  tokenSuffix: "#"
-                  writeBOM: true
-                  actionOnMissing: "fail"
-                  keepToken: false
-                  actionOnNoFiles: "fail"
-                  enableTransforms: false
-                  enableRecursion: false
-                  useLegacyPattern: false
-                  enableTelemetry: true
+                    rootDirectory: "$(Build.SourcesDirectory)/src"
+                    targetFiles: "server.js"
+                    encoding: "auto"
+                    tokenPattern: "custom"
+                    tokenPrefix: "#{"
+                    tokenSuffix: "}#"
+                    writeBOM: true
+                    actionOnMissing: "warn"
+                    keepToken: false
+                    actionOnNoFiles: "warn"
+                    enableTransforms: false
+                    enableRecursion: false
+                    useLegacyPattern: false
+                    enableTelemetry: true
 
           - task: replacetokens@5
             displayName: Replace Tokens (env)
