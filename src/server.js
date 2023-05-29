@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const port = 3001;
+const port = "#{REACT_APP_BACKEND_PORT}#";
 
 const corsOptions = {
   origin: ["#{REACT_APP_FRONTEND_API}#"],
