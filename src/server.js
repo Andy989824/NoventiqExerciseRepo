@@ -4,7 +4,7 @@ const cors = require("cors");
 const port = 3001;
 
 const corsOptions = {
-  origin: `${process.env.REACT_APP_FE_API}`,
+  origin: ["#{REACT_APP_FRONTEND_API}#"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
