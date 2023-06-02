@@ -13,8 +13,6 @@ COPY . .
 
 WORKDIR /app/src
 
-ENV DBURL = "https://noventiq-exercise-db-default-rtdb.asia-southeast1.firebasedatabase.app/"
-
 EXPOSE 3001
 
 CMD ["node", "server.js"]
