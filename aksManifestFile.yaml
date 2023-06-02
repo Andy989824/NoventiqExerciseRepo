@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: my-app-deployment-frontend-7
-          image: #acrLoginServer#/#imageRepo$:#appTag#
+          image: #acrLoginServer#/#imageRepo#:#appTag#
           ports:
             - containerPort: 3000
 ---
